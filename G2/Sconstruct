@@ -1,0 +1,15 @@
+#Taken from https://studia.elka.pw.edu.pl/file/18L/PROE.A/priv/wyk/wx.pdf page 3
+#modified using https://stackoverflow.com/questions/9922521/why-doesnt-clang-show-color-output-under-scons
+import os
+compiler='g++'
+compilerVer='-std=c++17'
+srcDirectory='./src'
+includeDirectory='./include'
+srcfiles=Glob(srcDirectory+'/*.cpp')
+srcfiles=srcfiles+Glob(srcDirectory+'/*.c')
+target='grav.out'
+build=Environment(CXX=compiler,CPPFLAGS=compilerVer)
+build['ENV']['TERM'] = os.environ['TERM']
+build.Append(CPPPATH=[includeDirectory,])
+build.Append(CPPFLAGS=['-Wall', '-Wextra', '-O3'])
+build.Program(target,srcfiles)
